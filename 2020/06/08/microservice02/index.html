@@ -20,28 +20,38 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="昊Site">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在任何分布式架构中，都需要找到机器所在的物理地址。这个概念自分布式计算开始出现就已经存在，并且被正式称为服&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;务发现。服务发现对于微服务和基于云的应用程序至关重要，主要有两个原因。首先，它为应用团队提供了一种能力，可&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;以快速地对在环境中运行的服务实例数量进行水平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Netflix Eureka进行服务发现">
+<meta property="og:url" content="http://yoursite.com/2020/06/08/microservice02/index.html">
 <meta property="og:site_name" content="昊Site">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在任何分布式架构中，都需要找到机器所在的物理地址。这个概念自分布式计算开始出现就已经存在，并且被正式称为服&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;务发现。服务发现对于微服务和基于云的应用程序至关重要，主要有两个原因。首先，它为应用团队提供了一种能力，可&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;以快速地对在环境中运行的服务实例数量进行水平">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/image/eurekadiscovery01.png">
+<meta property="og:image" content="http://yoursite.com/image/eurekadiscovery02.png">
+<meta property="og:image" content="http://yoursite.com/image/eurekadiscovery03.png">
+<meta property="og:image" content="http://yoursite.com/image/eurekadiscovery04.png">
+<meta property="og:image" content="http://yoursite.com/image/eurekadiscovery05.png">
+<meta property="article:published_time" content="2020-06-08T08:09:18.000Z">
+<meta property="article:modified_time" content="2020-07-12T14:59:01.029Z">
 <meta property="article:author" content="zyh">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/image/eurekadiscovery01.png">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/06/08/microservice02/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>昊Site</title>
+  <title>使用Netflix Eureka进行服务发现 | 昊Site</title>
   
 
 
@@ -150,9 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -168,10 +179,9 @@
       <meta itemprop="name" content="昊Site">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/08/microservice02/" class="post-title-link" itemprop="url">使用Netflix Eureka进行服务发现</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          使用Netflix Eureka进行服务发现
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -210,7 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;在任何分布式架构中，都需要找到机器所在的物理地址。这个概念自分布式计算开始出现就已经存在，并且被正式称为服<br>&nbsp;&nbsp;&nbsp;&nbsp;务发现。服务发现对于微服务和基于云的应用程序至关重要，主要有两个原因。首先，它为应用团队提供了一种能力，可<br>&nbsp;&nbsp;&nbsp;&nbsp;以快速地对在环境中运行的服务实例数量进行水平伸缩。通过服务发现，服务消费者能够将服务的物理位置抽象出来。由<br>&nbsp;&nbsp;&nbsp;&nbsp;于服务消费这不知道服务实例的物理位置，因此可以在不影响服务运行的情况下服务池中添加和移除服务实例。<br>&nbsp;&nbsp;&nbsp;&nbsp;服务发现的第二个好处是，它有助于提高应用程序的弹性。当微服务实例变的不健康或者不可用时，大多数服务发现引擎<br>&nbsp;&nbsp;&nbsp;&nbsp;将从内部移除该服务实例，并在路由时绕过不可用的服务，使不可用的服务造成的损害最小。</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;在任何分布式架构中，都需要找到机器所在的物理地址。这个概念自分布式计算开始出现就已经存在，并且被正式称为服<br>&nbsp;&nbsp;&nbsp;&nbsp;务发现。服务发现对于微服务和基于云的应用程序至关重要，主要有两个原因。首先，它为应用团队提供了一种能力，可<br>&nbsp;&nbsp;&nbsp;&nbsp;以快速地对在环境中运行的服务实例数量进行水平伸缩。通过服务发现，服务消费者能够将服务的物理位置抽象出来。由<br>&nbsp;&nbsp;&nbsp;&nbsp;于服务消费这不知道服务实例的物理位置，因此可以在不影响服务运行的情况下服务池中添加和移除服务实例。<br>&nbsp;&nbsp;&nbsp;&nbsp;服务发现的第二个好处是，它有助于提高应用程序的弹性。当微服务实例变的不健康或者不可用时，大多数服务发现引擎<br>&nbsp;&nbsp;&nbsp;&nbsp;将从内部移除该服务实例，并在路由时绕过不可用的服务，使不可用的服务造成的损害最小。</p>
 <h3 id="服务发现架构"><a href="#服务发现架构" class="headerlink" title="服务发现架构"></a>服务发现架构</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;在讨论服务架构前，需要了解4个概念，这些在所有服务发现实现中都是共通的。<br>&nbsp;&nbsp;&nbsp;&nbsp;(1)服务注册——服务如何使用服务发现代理进行注册？<br>&nbsp;&nbsp;&nbsp;&nbsp;(2)服务地址的客户端查找——服务客户端查找服务信息的方法是什么？<br>&nbsp;&nbsp;&nbsp;&nbsp;(3)信息共享——如何跨节点共享服务信息？<br>&nbsp;&nbsp;&nbsp;&nbsp;(4)健康监控——服务发现代理如何监控其代理的服务的健康信息？</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;下图为实现以上4个概念的架构：</p>
 <p><img src="/image/eurekadiscovery01.png" alt="服务发现架构图1"></p>
@@ -236,120 +246,30 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;现在，可以启动组织服务，启动后组织服务将会通过Eureka服务进行注册，此时若再次访问<a href="http://localhost:8761/，可以看到类似如下图的界面：" target="_blank" rel="noopener">http://localhost:8761/，可以看到类似如下图的界面：</a><br><img src="/image/eurekadiscovery04.png" alt="eureka服务注册web管理界面图"><br>若出现的界面与上图类似，说明到此为止应用的搭建还算顺利。可以看到上图的注册到eureka服务的所有服务实例列表不为空，多出了一行，这一行列出的信息代表有一个application Id为”ORGANIZATIONSERVICE”，instance ID为”10.10.1.216:organizationservice:11000”的服务实例注册到eureka，”UP(1)”则代表该服务只有一个实例正在运行。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;licenseservice服务的配置和启动注册和organizationservice服务的方式一样，这里就不在累赘，licenseservice注册成功后访问<a href="http://localhost:8761/结果如下图：" target="_blank" rel="noopener">http://localhost:8761/结果如下图：</a><br><img src="/image/eurekadiscovery05.png" alt="eureka服务注册web管理界面图"></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/05/microservie01/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar2.jpg">
-      <meta itemprop="name" content="zyh">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="昊Site">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/05/microservie01/" class="post-title-link" itemprop="url">Spring Cloud配置管理服务搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-05 16:09:18" itemprop="dateCreated datePublished" datetime="2020-06-05T16:09:18+08:00">2020-06-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-26 22:13:16" itemprop="dateModified" datetime="2020-06-26T22:13:16+08:00">2020-06-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">Spring微服务</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;对于在云中运行的微服务，管理应用程序配置是非常重要的，因为微服务实例需要以最少的人为干预快速启动。每当人们<br>&nbsp;&nbsp;&nbsp;&nbsp;需要手动配置或接触服务以实现部署时，都有可能出现配置漂移、意外中断以及应用程序响应可伸缩性挑战出现延迟的情<br>&nbsp;&nbsp;&nbsp;&nbsp;况。<br>&nbsp;&nbsp;&nbsp;&nbsp;4条原则：<br>&nbsp;&nbsp;&nbsp;&nbsp;(1)分离——服务配置信息应该与服务的实际物理部署完全分开。<br>&nbsp;&nbsp;&nbsp;&nbsp;(2)抽象——将访问配置数据的功能抽象到一个服务接口中。<br>&nbsp;&nbsp;&nbsp;&nbsp;(3)集中——将应用程序配置集中在尽可能少的存储库中，因为基于云的应用程序可能有数百个服务。<br>&nbsp;&nbsp;&nbsp;&nbsp;(4)稳定——保证配置服务高可用和冗余。</p>
-<h3 id="配置管理架构"><a href="#配置管理架构" class="headerlink" title="配置管理架构"></a>配置管理架构</h3><p><img src="/image/springcloudconfig01.png" alt="配置管理服务架构图"></p>
-<h3 id="实施选择"><a href="#实施选择" class="headerlink" title="实施选择"></a>实施选择</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;Etcd、Eureka、Consul、ZooKeeper、Spring cloud等开源项目都可实现配置服务的搭建，本文使用的是Spring cloud，<br>&nbsp;&nbsp;&nbsp;&nbsp;主要出于以下几个原因：<br>&nbsp;&nbsp;&nbsp;&nbsp;(1)Spring cloud配置服务易于搭建和使用。<br>&nbsp;&nbsp;&nbsp;&nbsp;(2)Spring cloud配置与Spring boot紧密集成，可以使用简单注解来读取所有应用程序配置。<br>&nbsp;&nbsp;&nbsp;&nbsp;(3)Spring cloud配置服务器提供多个后端用于存储配置数据，如果你已经使用Eureka或Consul等工具，那可以直接插入<br>&nbsp;&nbsp;&nbsp;&nbsp;Spring cloud配置服务器中。<br>&nbsp;&nbsp;&nbsp;&nbsp;(4)Spring cloud配置服务可以直接与Git集成，同时实现配置存储和版本控制。</p>
-<h3 id="构建Spring-Cloud配置管理服务"><a href="#构建Spring-Cloud配置管理服务" class="headerlink" title="构建Spring Cloud配置管理服务"></a>构建Spring Cloud配置管理服务</h3><p>代码清单1 Spring Cloud配置服务器maven配置 pom.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.4.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;parent&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;Camden.SR5&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-config-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;start-class&gt;com.thoughtmechanix.confsvr.ConfigServerApplication&lt;&#x2F;start-class&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">    &lt;&#x2F;plugins&gt;</span><br><span class="line">&lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;在本例中使用的是Spring Cloud的 Canmden.SR5版本。通过使用BOM定义，可以保证在Spring Cloud中使用子项目的兼容版本。这也意味着不必为子依赖项申明版本号。清单1中剩余部分声明了在服务中使用的特定Spring Cloud依赖项。一个是所有Spring Cloud项目使用的spring-cloud-starter-config。第二个是spring-cloud-config-server起步项目，它包含spring-cloud-config-server的核心库。</p>
-<p>代码清单2 Spring Cloud配置服务启动配置<br>bootstrap.yml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: configserver</span><br></pre></td></tr></table></figure>
-<p>application.yml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8888</span><br><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      server:</span><br><span class="line">        git:</span><br><span class="line">          uri: github仓库地址</span><br><span class="line">          searchPaths: 配置文件存放路径目录，用‘，’分隔</span><br><span class="line">          username: xxxxx</span><br><span class="line">          password: xxxxx</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建Git仓库"><a href="#创建Git仓库" class="headerlink" title="创建Git仓库"></a>创建Git仓库</h3><p>创建用于存储服务配置的Git仓库，在仓库下建立服务配置目录并将需要管理的微服务配置提交到对应目录下，此目录名对应配置中的searchPaths字段本文会创建一个单独的名为lincensingServer的Spring boot服务，并将通过前面搭建的configserver配置管理服务来托管其服务配置，所以会在git仓库下创建一个名为licensingserver的目录，该目录下创建了三个配置文件分别对应服务的开发环境配置(licensingserver-dev.yml)、生产环境配置(licensingserver-prod.yml)、默认配置(licensingserver.yml)，三个文件中都配置了example.property字段用于测试，值分别为“I AM A PROD PROPERTY DEV”，“I AM A PROD PROPERTY OVERRIDE”，“I AM IN THE DEFAULT”。<br>对应的git仓库目录如下：<br><img src="/image/springcloudconfig02.png" alt="git仓库配置存放目录"><br><img src="/image/springcloudconfig03.png" alt="服务配置文件列表"></p>
-<h3 id="创建配置管理服务引导类"><a href="#创建配置管理服务引导类" class="headerlink" title="创建配置管理服务引导类"></a>创建配置管理服务引导类</h3><p>代码清单3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableConfigServer &#x2F;&#x2F;使服务成为Spring Cloud Config服务</span><br><span class="line">public class ConfigServerApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Spring-Cloud客户端服务配置"><a href="#Spring-Cloud客户端服务配置" class="headerlink" title="Spring Cloud客户端服务配置"></a>Spring Cloud客户端服务配置</h3><p>代码清单4 新建一个Spring boot项目licensingServer<br>pom.xml配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.4.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;parent&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;Camden.SR5&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;!--启动spring cloud config客户端所需依赖--&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;!--spring cloud config客户端核心类库--&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-config-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line"></span><br><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;start-class&gt;com.thoughtmechanix.licenses.LIcenseApplication&lt;&#x2F;start-class&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">    &lt;&#x2F;plugins&gt;</span><br><span class="line">&lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
-
-<p>bootstrap.yml配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8880</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: licensingservice # 配置文件名称，对应 git 仓库中配置文件前半部分</span><br><span class="line">  profiles:</span><br><span class="line">    active:</span><br><span class="line">      default # 指定环境，对应 git 仓库中配置文件的后缀名称,如dev,prod或者无</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      uri: http:&#x2F;&#x2F;localhost:8888 # config-server 服务端地址</span><br></pre></td></tr></table></figure>
-
-<p>为了测试，我们在licensingserver项目下创建一个ServerConfig配置类和LicenseServiceController类，前者用于注入配置服务器管理下的配置文件信息，后者用于暴露请求接口,查询并返回配置信息<br>代码清单5</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;example.property&#125;&quot;)</span><br><span class="line">    private String exampleProperty;</span><br><span class="line"></span><br><span class="line">    public String getExampleProperty() &#123;</span><br><span class="line">        return exampleProperty;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(value &#x3D; &quot;v1&#x2F;license&#x2F;&quot;)</span><br><span class="line">public class LicenseServiceController &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ServiceConfig serviceConfig;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value &#x3D; &quot;&#x2F;query&quot;, method &#x3D; RequestMethod.GET)</span><br><span class="line">    public String getLicenses() &#123;</span><br><span class="line">        return serviceConfig.getExampleProperty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>至此，所有服务搭建相关配置已完成，分别启动配置服务 configserver 和 licensingserver 服务，调用 <a href="http://localhost:8880/v1/license/query" target="_blank" rel="noopener">http://localhost:8880/v1/license/query</a> 接口进行测试<br>测试结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl http:&#x2F;&#x2F;localhost:8880&#x2F;v1&#x2F;license&#x2F;query</span><br><span class="line">$ I AM IN THE DEFAULT</span><br></pre></td></tr></table></figure>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/05/microservie01/" rel="prev" title="Spring Cloud配置管理服务搭建">
+      <i class="fa fa-chevron-left"></i> Spring Cloud配置管理服务搭建
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -402,6 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务发现架构"><span class="nav-number">1.</span> <span class="nav-text">服务发现架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Netflix-Eureka进行服务发现代理"><span class="nav-number">2.</span> <span class="nav-text">使用Netflix Eureka进行服务发现代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建Spring-Eureka服务"><span class="nav-number">2.1.</span> <span class="nav-text">构建Spring Eureka服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过Spring-Eureka-注册服务"><span class="nav-number">2.2.</span> <span class="nav-text">通过Spring Eureka 注册服务</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
